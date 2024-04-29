@@ -1,1 +1,1 @@
-# Andmetehnika-projekt-2024
+# GBIF | Global Biodiversity Information Facility ETL
