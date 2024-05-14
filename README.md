@@ -28,7 +28,7 @@ The script located in the transform_GBIF file takes the downloaded .csv file, ad
 
 This step assumes a parquet directory where the transformed files will be stored. 
 
-The script can be run with the command below:
+The script can run with the command below:
 
 for fn in $(ls csv); do
     echo "Transforming $fn..."
@@ -36,7 +36,7 @@ for fn in $(ls csv); do
 done
 
 
-Visualizing Data
+Visualizing Data in Superset
 
 
 
