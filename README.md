@@ -24,6 +24,11 @@ Species located outside of the mainland were filtered out to retain only mainlan
 
 Transforming the data
 
+The script located in the transform_GBIF file takes the downloaded .csv file, adjusts the number format and column names, and saves the transformed data as a Parquet file.
+
+This step assumes a parquet directory where the transformed files will be stored. 
+
+The script can be run with the command below:
 
 for fn in $(ls csv); do
     echo "Transforming $fn..."
