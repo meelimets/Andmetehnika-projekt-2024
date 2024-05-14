@@ -19,5 +19,15 @@ Since the biodiversity database is not updated weekly, we directly downloaded th
 Transforming the data
 
 
+for fn in $(ls csv); do
+    echo "Transforming $fn..."
+    python transform_GBIF.py csv/$fn parquet/$(basename $fn .csv).parquet
+done
+
+
+Visualizing Data
+
+
+
 
 
