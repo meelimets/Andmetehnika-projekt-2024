@@ -15,6 +15,12 @@ Extract
 
 Since the biodiversity database is not updated weekly, we directly downloaded the database as a csv file from the website.
 
+The data cleaning and preparation
+
+The dataset was augmented with an ISO code (the county's identifier) for each row, alongside the county name and a code assigned by the national authority (essentially the same ISO code but without the 'EE' prefix). This was done to ensure compatibility with Superset's column display requirements. Both codes are now included.
+
+Species located outside of the mainland were filtered out to retain only mainland results. This was done to ensure clarity when displaying them on the map later.
+
 
 Transforming the data
 
