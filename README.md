@@ -38,7 +38,10 @@ done
 
 ## Visualizing Data in Superset
 
+Here's how to get started with visualizing your air quality data in Apache Superset:
 
+Open your web browser and navigate to localhost:8080. This will take you to the Apache Superset login page.
+Enter the credentials you set up during the initialization process to log in.
 
 
 
