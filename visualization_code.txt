@@ -1,4 +1,4 @@
-#Taimed
+## Taimed
 
 SELECT year AS year,
                count(species) AS "COUNT(species)"
@@ -10,3 +10,83 @@ WHERE kingdom = 'Plantae'
 GROUP BY year
 ORDER BY "COUNT(species)" DESC
 LIMIT 50000;
+
+## Loomad
+
+SELECT year AS year,
+               count(species) AS "COUNT(species)"
+FROM
+  (SELECT *
+   FROM read_parquet('/data/parquet/*.parquet')
+   ORDER BY eventDate) AS virtual_table
+WHERE kingdom = 'Animalia'
+GROUP BY year
+ORDER BY "COUNT(species)" DESC
+LIMIT 10000;
+
+## Seened
+
+SELECT year AS year,
+               count(species) AS "COUNT(species)"
+FROM
+  (SELECT *
+   FROM read_parquet('/data/parquet/*.parquet')
+   ORDER BY eventDate) AS virtual_table
+WHERE kingdom = 'Fungi'
+GROUP BY year
+ORDER BY "COUNT(species)" DESC
+LIMIT 10000;
+
+## Kõik vaatlused
+
+SELECT "decimalLatitude" AS "decimalLatitude",
+       "decimalLongitude" AS "decimalLongitude",
+       count(DISTINCT species) AS "COUNT_DISTINCT(species)"
+FROM
+  (SELECT *
+   FROM read_parquet('/data/parquet/*.parquet')
+   ORDER BY eventDate) AS virtual_table
+WHERE (kingdom NOT IN ('Protozoa'))
+  AND (kingdom NOT IN ('Bacteria'))
+  AND (kingdom NOT IN ('incertae sedis'))
+  AND (kingdom NOT IN ('Chromista'))
+  AND "decimalLatitude" IS NOT NULL
+  AND "decimalLongitude" IS NOT NULL
+GROUP BY "decimalLatitude",
+         "decimalLongitude"
+ORDER BY "COUNT_DISTINCT(species)" DESC
+LIMIT 50000;
+
+## Liikide vaatlused maakonniti
+
+SELECT "MNIMI" AS "MNIMI",
+       count(DISTINCT species) AS "COUNT_DISTINCT(species)"
+FROM
+  (SELECT *
+   FROM read_parquet('/data/parquet/*.parquet')
+   ORDER BY eventDate) AS virtual_table
+WHERE (kingdom NOT IN ('Protozoa'))
+  AND (kingdom NOT IN ('incertae sedis'))
+  AND (kingdom NOT IN ('Chromista'))
+  AND (kingdom NOT IN ('Bacteria'))
+GROUP BY "MNIMI"
+ORDER BY "COUNT_DISTINCT(species)" DESC
+LIMIT 50000;
+
+## Loomad, seened, taimed
+
+SELECT "MKOOD" AS "MKOOD",
+       kingdom AS kingdom,
+       count(DISTINCT species) AS "COUNT_DISTINCT(species)"
+FROM
+  (SELECT *
+   FROM read_parquet('/data/parquet/*.parquet')
+   ORDER BY eventDate) AS virtual_table
+WHERE (kingdom NOT IN ('Protozoa'))
+  AND (kingdom NOT IN ('incertae sedis'))
+  AND (kingdom NOT IN ('Bacteria'))
+  AND (kingdom NOT IN ('Chromista'))
+GROUP BY "MKOOD",
+         kingdom
+LIMIT 50000;
+
