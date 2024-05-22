@@ -1,6 +1,19 @@
-# GBIF | Global Biodiversity Information Facility ETL
+# GBIF Estonia | Global Biodiversity Information Facility ETL
 
 ## Setup
+
+Created two new Docker containers that utilize the same `ETL_superset` folder as a mount point:
+
+A Superset container with our project mounted.
+A Python development container with our project mounted.
+Execute the following commands to set up the Superset container. Remember to change the `SUPERSET_SECRET_KEY` to a new secret value and keep it confidential, especially not publishing it on GitHub or any public repositories.
+
+docker run -d -v ${PWD}:/data:rw -p 8080:8088 -e "SUPERSET_SECRET_KEY=your_new_secret_key" --name superset <replace with image name we created last time. i.e. my/superset:duckdb - see docker images for list>
+
+# Update user, firstname, lastname, email and password as you see fit
+docker exec -it superset superset fab create-admin --username admin --firstname Admin --lastname Superset --email admin@example.com --password admin
+docker exec -it superset superset db upgrade
+docker exec -it superset superset init
 
 For setting up the development container in Visual Studio Code, we followed these steps:
 
