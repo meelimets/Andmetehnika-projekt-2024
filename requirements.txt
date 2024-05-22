@@ -2,3 +2,4 @@ pyarrow
 pandas
 geopandas
 matplotlib
+shapely
