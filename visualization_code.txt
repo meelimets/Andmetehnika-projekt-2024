@@ -1,1 +1,12 @@
+#Taimed
 
+SELECT year AS year,
+               count(species) AS "COUNT(species)"
+FROM
+  (SELECT *
+   FROM read_parquet('/data/parquet/*.parquet')
+   ORDER BY eventDate) AS virtual_table
+WHERE kingdom = 'Plantae'
+GROUP BY year
+ORDER BY "COUNT(species)" DESC
+LIMIT 50000;
