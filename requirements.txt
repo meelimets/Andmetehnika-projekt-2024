@@ -1,1 +1,4 @@
-
+pyarrow
+pandas
+geopandas
+matplotlib
