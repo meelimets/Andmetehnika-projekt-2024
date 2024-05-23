@@ -54,12 +54,12 @@ Initialized Superset by executing:
 
 For our project, we focused on extracting data related to Estonia. The data extraction process involved querying the database with specific conditions to subset the data:
 
-Basis of Record: Human observation
+```Basis of Record: Human observation
 Country or Area: Estonia
 Has Coordinate: True
 Has Geospatial Issue: False
 Occurrence Status: Present
-Year Range: From the start of 2000 to the end of 2024
+Year Range: From the start of 2000 to the end of 2024```
 The output was downloaded as a tabular data file in .csv format.
 
 ### 1. Data cleaning 
