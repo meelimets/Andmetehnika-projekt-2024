@@ -56,20 +56,32 @@ Used the keyboard shortcut Ctrl+Shift+P or Cmd+Shift+P and typed and selected De
 
 ## Extract
 
-Since the biodiversity database is not updated weekly, we directly downloaded the database as a csv file from the website.
+For our project, we focused on extracting data related to Estonia. The data extraction process involved querying the database with specific conditions to subset the data:
 
-## Data cleaning and preparation
+Basis of Record: Human observation
+Country or Area: Estonia
+Has Coordinate: True
+Has Geospatial Issue: False
+Occurrence Status: Present
+Year Range: From the start of 2000 to the end of 2024
+The output was downloaded as a tabular data file in .csv format.
 
-The dataset was augmented with an ISO code (the county's identifier) for each row, alongside the county name and a code assigned by the national authority (essentially the same ISO code but without the 'EE' prefix). This was done to ensure compatibility with Superset's column display requirements. Both codes are now included.
+### 1. Data cleaning 
 
-Species located outside of the mainland were filtered out to retain only mainland results. This was done to ensure clarity when displaying them on the map later.
+Ensured that all data points were on land by removing records related to marine areas.
+
+### 2. Adding Additional Information:
+
+For each data record (row), additional information was added to indicate the county where the data point was recorded.
+
+### 3. Column Selection:
+
+The original dataset contained 50 different columns. To reduce the file size and retain only useful information for visualization, only selected columns were kept.
 
 
 ## Transforming the data
 
-The script located in the transform_GBIF file takes the downloaded .csv file, adjusts the number format and column names, and saves the transformed data as a Parquet file.
-
-This step assumes a parquet directory where the transformed files will be stored. 
+The transformation process was carried out using Python script (transform_GBIF.py). The script took the downloaded CSV file, adjusted the number format and column names, saved the transformed data as a Parquet file, which is convenient while processing large data. Later the dataset was augmented with an ISO code, a county identifier for each row, together with county name. This was done to ensure the compatibility with Superset’s column display requirements. The transformed data is stored in a directory named parquet.
 
 The script can run with the command below:
 
@@ -78,13 +90,13 @@ for fn in $(ls csv); do
     python transform_GBIF.py csv/$fn parquet/$(basename $fn .csv).parquet
 done
 
+## Load
+
+The loading stage involved visualizing the transformed data using Apache Superset. The project is utilizing Docker containers for both Superset and Python environments. These containers are created with the project, mounted on the same project folder. The superset container is set up with a secret key. Later, the Docker environment was used for loading the data into Apache Superset (commands are described in the project file). The data was later visualized with appropriate charts, scripts are available in the project file. The Python Script (Species_Richness_And_Density_plots_Script.py) was used to create species richness map and species hexbin density plot.
 
 ## Visualizing Data in Superset
 
-Here's how to get started with visualizing your air quality data in Apache Superset:
-
-Open your web browser and navigate to localhost:8080. This will take you to the Apache Superset login page.
-Enter the credentials you set up during the initialization process to log in.
+Visualization process was carried out using Apache Superset and Python libraries. The final summary can be seen on a dashboard, provided below. The dashboard contains multiple visualizations, including a bar chart showing species richness in Estonia from 2000-2023, a horizontal bar chart showing species observations by county, a map plotting individual species observations across Estonia and three line graphs showing separate trends over the time for animals, fungi and plants. The Species Richness Map displayed the count for distinct species in each county. It was created by grouping the data by county identifier code and calculating the distinct species count.
 
 
 
