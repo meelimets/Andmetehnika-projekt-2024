@@ -70,11 +70,11 @@ The output was downloaded as a tabular data file in .csv format.
 
 Ensured that all data points were on land by removing records related to marine areas.
 
-### 2. Adding Additional Information:
+### 2. Adding Additional Information
 
 For each data record (row), additional information was added to indicate the county where the data point was recorded.
 
-### 3. Column Selection:
+### 3. Column Selection
 
 The original dataset contained 50 different columns. To reduce the file size and retain only useful information for visualization, only selected columns were kept.
 
