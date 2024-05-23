@@ -10,9 +10,9 @@ To facilitate a collaborative environment for our group project, we followed the
 ### Superset Container Setup
 1. Create and Start the Superset Container
 
-Executed the following command to create and start the Superset container. Replaced your_new_secret_key with a new secret value and replaced <replace with image name> with the name of the image created previously (e.g., my/superset:duckdb). 
+Executed the following command to create and start the Superset container. Replaced <replace with image name> the name of the image created previously (my/superset:duckdb). 
 
-docker run -d -v ${PWD}:/data:rw -p 8080:8088 -e "SUPERSET_SECRET_KEY=your_new_secret_key" --name superset <replace with image name>
+```docker run -d -v ${PWD}:/data:rw -p 8080:8088 -e "SUPERSET_SECRET_KEY=your_new_secret_key" --name superset <replace with image name>```
 
 2. Create an Admin User
 
