@@ -4,8 +4,6 @@
 Followed the intsructions from the webpage:
 https://hub.docker.com/r/apache/superset
 
-## Setup
-
 To facilitate a collaborative environment for our group project, we followed these instructions to set up and configure two Docker containers that shared the same folder as a mount point:
 
 1. A Superset container with our project mounted.
@@ -24,7 +22,7 @@ Created an admin user for Superset by running the following command. Updated the
 
 ```docker exec -it superset superset fab create-admin --username admin --firstname Admin --lastname Superset --email admin@example.com --password admin```
 
-### 3. Upgrade the Database
+### 3. Upgraded the Database
 
 Upgraded the database by running:
 
@@ -79,18 +77,18 @@ The original dataset contained 50 different columns. To reduce the file size and
 
 ## Transforming the data
 
-The transformation process was carried out using Python script (transform_GBIF.py). The script took the downloaded CSV file, adjusted the number format and column names, saved the transformed data as a Parquet file, which is convenient while processing large data. Later the dataset was augmented with an ISO code, a county identifier for each row, together with county name. This was done to ensure the compatibility with Superset’s column display requirements. The transformed data is stored in a directory named parquet.
+The transformation process was carried out using Python script ```transform_GBIF.py```. The script took the downloaded CSV file, adjusted the number format and column names, saved the transformed data as a Parquet file, which is convenient while processing large data. Later the dataset was augmented with an ISO code, a county identifier for each row, together with county name. This was done to ensure the compatibility with Superset’s column display requirements. The transformed data is stored in a directory named parquet.
 
 The script can run with the command below:
 
-for fn in $(ls csv); do
+```for fn in $(ls csv); do
     echo "Transforming $fn..."
     python transform_GBIF.py csv/$fn parquet/$(basename $fn .csv).parquet
-done
+done```
 
 ## Load
 
-The loading stage involved visualizing the transformed data using Apache Superset. The project is utilizing Docker containers for both Superset and Python environments. These containers are created with the project, mounted on the same project folder. The superset container is set up with a secret key. Later, the Docker environment was used for loading the data into Apache Superset (commands are described in the project file). The data was later visualized with appropriate charts, scripts are available in the project file. The Python Script (Species_Richness_And_Density_plots_Script.py) was used to create species richness map and species hexbin density plot.
+The loading stage involved visualizing the transformed data using Apache Superset. The project is utilizing Docker containers for both Superset and Python environments. These containers are created with the project, mounted on the same project folder. The superset container is set up with a secret key. Later, the Docker environment was used for loading the data into Apache Superset (commands are described in the project file). The data was later visualized with appropriate charts, scripts are available in the project file. The Python Script ```Species_Richness_And_Density_plots_Script.py``` was used to create species richness map and species hexbin density plot.
 
 ## Visualizing Data in Superset
 
