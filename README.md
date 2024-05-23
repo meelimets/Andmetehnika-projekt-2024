@@ -11,26 +11,26 @@ To facilitate a collaborative environment for our group project, we followed the
 1. A Superset container with our project mounted.
 2. A Python development container with our project mounted.
 
-### Superset Container Setup
-## 1. Created and Started the Superset Container
+## Superset Container Setup
+### 1. Created and Started the Superset Container
 
 Executed the following command to create and start the Superset container. Replaced <replace with image name> the name of the image created previously (my/superset:duckdb). 
 
 ```docker run -d -v ${PWD}:/data:rw -p 8080:8088 -e "SUPERSET_SECRET_KEY=your_new_secret_key" --name superset <replace with image name>```
 
-## 2. Created an Admin User
+### 2. Created an Admin User
 
 Created an admin user for Superset by running the following command. Updated the username, firstname, lastname, email, and password as needed:
 
 ```docker exec -it superset superset fab create-admin --username admin --firstname Admin --lastname Superset --email admin@example.com --password admin```
 
-## 3. Upgrade the Database
+### 3. Upgrade the Database
 
 Upgraded the database by running:
 
 ```docker exec -it superset superset db upgrade```
 
-## 4. Initialize Superset
+### 4. Initialize Superset
 
 Initialized Superset by executing:
 
