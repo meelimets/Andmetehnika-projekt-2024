@@ -81,18 +81,16 @@ The transformation process was carried out using Python script ```transform_GBIF
 
 The script can run with the command below:
 
-```for fn in $(ls csv); do
+for fn in $(ls csv); do
     echo "Transforming $fn..."
     python transform_GBIF.py csv/$fn parquet/$(basename $fn .csv).parquet
-done```
+done
 
-## Load
+## Loading and visualizing Data in Superset
 
-The loading stage involved visualizing the transformed data using Apache Superset. The project is utilizing Docker containers for both Superset and Python environments. These containers are created with the project, mounted on the same project folder. The superset container is set up with a secret key. Later, the Docker environment was used for loading the data into Apache Superset (commands are described in the project file). The data was later visualized with appropriate charts, scripts are available in the project file. The Python Script ```Species_Richness_And_Density_plots_Script.py``` was used to create species richness map and species hexbin density plot.
+The loading stage involved visualizing the transformed data using Apache Superset. The project is utilizing Docker containers for both Superset and Python environments. These containers are created with the project, mounted on the same project folder. The superset container is set up with a secret key. Later, the Docker environment was used for loading the data into Apache Superset. The data was later visualized with appropriate charts, scripts are available in the ```visualization_code.txt```. The Python Script ```species_richness_and_density_plots_script.py``` was used to create species richness map and species hexbin density plot. ```adding_counties.py``` adds county information to the dataset and ```subset_data.py``` makes the dataset smaller.
 
-## Visualizing Data in Superset
-
-Visualization process was carried out using Apache Superset and Python libraries. The final summary can be seen on a dashboard, provided below. The dashboard contains multiple visualizations, including a bar chart showing species richness in Estonia from 2000-2023, a horizontal bar chart showing species observations by county, a map plotting individual species observations across Estonia and three line graphs showing separate trends over the time for animals, fungi and plants. The Species Richness Map displayed the count for distinct species in each county. It was created by grouping the data by county identifier code and calculating the distinct species count.
+Visualization process was carried out using Apache Superset and Python libraries. The final summary can be seen on a dashboard, image file is added to the project. The dashboard contains multiple visualizations, including a bar chart showing species richness in Estonia from 2000-2023, a horizontal bar chart showing species observations by county, a map plotting individual species observations across Estonia and three line graphs showing separate trends over the time for animals, fungi and plants. The Species Richness Map displayed the count for distinct species in each county. It was created by grouping the data by county identifier code and calculating the distinct species count.
 
 
 
