@@ -2,28 +2,57 @@
 
 ## Setup
 
-Created two new Docker containers that utilize the same `ETL_superset` folder as a mount point:
+To facilitate a collaborative environment for our group project, we followed these instructions to set up and configure two Docker containers that shared the same folder as a mount point:
 
-A Superset container with our project mounted.
-A Python development container with our project mounted.
-Execute the following commands to set up the Superset container. Remember to change the `SUPERSET_SECRET_KEY` to a new secret value and keep it confidential, especially not publishing it on GitHub or any public repositories.
+1. A Superset container with our project mounted.
+2. A Python development container with our project mounted.
 
-docker run -d -v ${PWD}:/data:rw -p 8080:8088 -e "SUPERSET_SECRET_KEY=your_new_secret_key" --name superset <replace with image name we created last time. i.e. my/superset:duckdb - see docker images for list>
+### Superset Container Setup
+1. Create and Start the Superset Container
 
-Update user, firstname, lastname, email and password as you see fit
+Executed the following command to create and start the Superset container. Replaced your_new_secret_key with a new secret value and replaced <replace with image name> with the name of the image created previously (e.g., my/superset:duckdb). 
+
+docker run -d -v ${PWD}:/data:rw -p 8080:8088 -e "SUPERSET_SECRET_KEY=your_new_secret_key" --name superset <replace with image name>
+
+2. Create an Admin User
+
+Created an admin user for Superset by running the following command. Updated the username, firstname, lastname, email, and password as needed:
 
 docker exec -it superset superset fab create-admin --username admin --firstname Admin --lastname Superset --email admin@example.com --password admin
+
+3. Upgrade the Database
+
+Upgraded the database by running:
+
 docker exec -it superset superset db upgrade
+
+4. Initialize Superset
+
+Initialized Superset by executing:
+
 docker exec -it superset superset init
 
-For setting up the development container in Visual Studio Code, we followed these steps:
+### Python Development Container Setup in Visual Studio Code
 
-Opened the project folder in VS Code.
-Opened the command palette using the keyboard shortcut `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac). Typed and selected Dev Containers: Add Dev Container Configuration Files...
-Selected: Add Configuration to Workspace.
-Choosed Python 3 and then selected 3.12-bullseye as the version.
-Selected' none' when asked for additional packages and clicked OK.
-Used the keyboard shortcut `Ctrl+Shift+P` or `Cmd+Shift+P` and typed and selected Dev Containers: Reopen in Container.
+Opened the project folder in Visual Studio Code.
+
+Added Dev Container Configuration Files
+
+Opened the command palette using the keyboard shortcut Ctrl+Shift+P (Windows/Linux).
+
+Typed and selected Dev Containers: Add Dev Container Configuration Files....
+
+Select Configuration
+
+Selected Add Configuration to Workspace.
+
+Chosed Python 3 and then selected 3.12-bullseye as the version.
+
+Selected none when asked for additional packages and clicked OK.
+
+Reopened the Project in the Container
+
+Used the keyboard shortcut Ctrl+Shift+P or Cmd+Shift+P and typed and selected Dev Containers: Reopen in Container.
 
 ## Extract
 
