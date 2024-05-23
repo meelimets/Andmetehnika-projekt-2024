@@ -1,5 +1,9 @@
 # GBIF Estonia | Global Biodiversity Information Facility ETL
 
+## Superset Image setup
+Followed the intsructions from the webpage:
+https://hub.docker.com/r/apache/superset
+
 ## Setup
 
 To facilitate a collaborative environment for our group project, we followed these instructions to set up and configure two Docker containers that shared the same folder as a mount point:
@@ -8,51 +12,45 @@ To facilitate a collaborative environment for our group project, we followed the
 2. A Python development container with our project mounted.
 
 ### Superset Container Setup
-1. Create and Start the Superset Container
+## 1. Created and Started the Superset Container
 
 Executed the following command to create and start the Superset container. Replaced <replace with image name> the name of the image created previously (my/superset:duckdb). 
 
 ```docker run -d -v ${PWD}:/data:rw -p 8080:8088 -e "SUPERSET_SECRET_KEY=your_new_secret_key" --name superset <replace with image name>```
 
-2. Create an Admin User
+## 2. Created an Admin User
 
 Created an admin user for Superset by running the following command. Updated the username, firstname, lastname, email, and password as needed:
 
-docker exec -it superset superset fab create-admin --username admin --firstname Admin --lastname Superset --email admin@example.com --password admin
+```docker exec -it superset superset fab create-admin --username admin --firstname Admin --lastname Superset --email admin@example.com --password admin```
 
-3. Upgrade the Database
+## 3. Upgrade the Database
 
 Upgraded the database by running:
 
-docker exec -it superset superset db upgrade
+```docker exec -it superset superset db upgrade```
 
-4. Initialize Superset
+## 4. Initialize Superset
 
 Initialized Superset by executing:
 
-docker exec -it superset superset init
+```docker exec -it superset superset init```
 
 ### Python Development Container Setup in Visual Studio Code
 
-Opened the project folder in Visual Studio Code.
+* Opened the project folder in Visual Studio Code.
 
-Added Dev Container Configuration Files
+* Opened the command palette using the keyboard shortcut Ctrl+Shift+P (Windows/Linux).
 
-Opened the command palette using the keyboard shortcut Ctrl+Shift+P (Windows/Linux).
+* Typed and selected ```Dev Containers: Add Dev Container Configuration Files....```
 
-Typed and selected Dev Containers: Add Dev Container Configuration Files....
+* Selected ```Add Configuration to Workspace```.
 
-Select Configuration
+* Chosed ```Python 3``` and then selected ```3.12-bullseye``` as the version.
 
-Selected Add Configuration to Workspace.
+* Selected none when asked for additional packages and clicked ```OK```.
 
-Chosed Python 3 and then selected 3.12-bullseye as the version.
-
-Selected none when asked for additional packages and clicked OK.
-
-Reopened the Project in the Container
-
-Used the keyboard shortcut Ctrl+Shift+P or Cmd+Shift+P and typed and selected Dev Containers: Reopen in Container.
+* Reopened the Project in the Container
 
 ## Extract
 
